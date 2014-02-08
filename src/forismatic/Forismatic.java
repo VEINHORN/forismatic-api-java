@@ -25,10 +25,6 @@ public class Forismatic {
 	private final static String API_LANG_TITLE = "lang";
 	private final static String API_METHOD = "getQuote";
 	private final static String API_XML = "xml";
-	private final static String API_JSON = "json";
-	private final static String API_JSONP = "jsonp";
-	private final static String API_HTML = "html";
-	private final static String API_TEXT = "text";
 	private final static String XML_QUOTE_TEXT_PATH = "/forismatic/quote/quoteText";
 	private final static String XML_QUOTE_TEXT_AUTHOR_PATH = "/forismatic/quote/quoteAuthor";
 	
@@ -85,7 +81,6 @@ public class Forismatic {
 	
 	public Quote getQuote() {
 		String xmlString = getXML();
-		Quote quote = parseXML(xmlString);
 		return parseXML(xmlString);
 	}
 	
