@@ -1,6 +1,6 @@
-package forismatic;
+package com.forismastic;
 
-import forismatic.Forismatic.Quote;
+import com.forismastic.Forismatic.Quote;
 
 public class Sample {
 	public static void main(String[] args) {

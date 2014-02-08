@@ -1,4 +1,4 @@
-package forismatic;
+package com.forismastic;
 
 import java.io.BufferedReader;
 import java.io.IOException;
