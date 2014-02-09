@@ -7,9 +7,9 @@ To get a Quote object you need to call getQuote() method:
 ```java
 Quote quote = new Forismatic().getQuote();
 ```
-API supports English & Russian languages. The default language for quotes is English. You can change it by putting constant to constructor:
+API supports English & Russian languages. The default language for quotes is Russian. You can change it by putting constant to constructor:
 ```java
-Quote quote = new Forismatic(Forismatic.RUSSIAN).getQuote();
+Quote quote = new Forismatic(Forismatic.ENGLISH).getQuote();
 ```
 or call setLanguage() method:
 ```java
@@ -31,3 +31,5 @@ To use this library you need the minimum api level 8. Also add the following to 
 ```xml
 <uses-permission android:name="android.permission.INTERNET"/>
 ```
+###Applications using forismatic-api-java
+[![ScreenShot](http://i.imgur.com/AguXNK1.png?2)](https://github.com/VEINHORN/forismatic-api-java)[![ScreenShot](http://i.imgur.com/qPqU49b.png?1)](https://github.com/VEINHORN/forismatic-api-java)
