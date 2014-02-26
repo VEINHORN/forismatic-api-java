@@ -32,4 +32,4 @@ To use this library you need the minimum api level 8. Also add the following to 
 <uses-permission android:name="android.permission.INTERNET"/>
 ```
 ###Applications using forismatic-api-java
-[![ScreenShot](http://i.imgur.com/AguXNK1.png?2)](https://github.com/VEINHORN/Elite-Quotes)[![ScreenShot](http://i.imgur.com/qPqU49b.png?1)](https://play.google.com)
+[![ScreenShot](http://i.imgur.com/AguXNK1.png?2)](https://github.com/VEINHORN/Elite-Quotes)[![ScreenShot](http://i.imgur.com/qPqU49b.png?1)](https://play.google.com/store/apps/details?id=com.elitequotes)
