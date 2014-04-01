@@ -27,10 +27,8 @@ public class Forismatic {
 	private final static String API_XML = "xml";
 	private final static String XML_QUOTE_TEXT_PATH = "/forismatic/quote/quoteText";
 	private final static String XML_QUOTE_TEXT_AUTHOR_PATH = "/forismatic/quote/quoteAuthor";
-	
 	public final static String RUSSIAN = "ru";
 	public final static String ENGLISH = "en";
-	
 	private String language;
 	
 	public class Quote {
@@ -80,15 +78,13 @@ public class Forismatic {
 	}
 	
 	public Quote getQuote() {
-		String xmlString = getXML();
-		return parseXML(xmlString);
+		return parseXML(getXML());
 	}
 	
 	private Quote parseXML(String xmlString) {
 		XPathFactory xPathFactory = XPathFactory.newInstance();
 		XPath xPath= xPathFactory.newXPath();
-		InputSource source1 = new InputSource(new StringReader(xmlString));
-		InputSource source2 = new InputSource(new StringReader(xmlString));
+		InputSource source1 = new InputSource(new StringReader(xmlString)), source2 = new InputSource(new StringReader(xmlString));
 		String text = null, author = null;
 		try {
 			text = xPath.evaluate(XML_QUOTE_TEXT_PATH, source1);
@@ -123,16 +119,13 @@ public class Forismatic {
 	}
 
 	private Integer getRandom() {
-		int min = 1;
-		int max = 999999;
+		int min = 1, max = 999999;
 		Random random = new Random();
-		Integer integer = random.nextInt((max - min) + 1) + min;
-		return integer;
+		return random.nextInt((max - min) + 1) + min;
 	}
 	
 	private String convertInputStreamToString(URLConnection connection) {
-		String xmlString = "";
-		String line;
+		String xmlString = "", line = "";
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
 			while((line = reader.readLine()) != null) {

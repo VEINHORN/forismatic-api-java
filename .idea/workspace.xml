@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e62c2419-d380-4f09-9137-c9d140785335" name="Default" comment="" />
+    <list default="true" id="e62c2419-d380-4f09-9137-c9d140785335" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/forismastic/Forismatic.java" afterPath="$PROJECT_DIR$/src/com/forismastic/Forismatic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/forismastic/Sample.java" afterPath="$PROJECT_DIR$/src/com/forismastic/Sample.java" />
+    </list>
     <ignored path="forismatic-api-java.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,8 +65,27 @@
   <component name="FavoritesManager">
     <favorites_list name="forismatic-api-java" />
   </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/forismastic/Forismatic.java" />
+        <option value="$PROJECT_DIR$/src/com/forismastic/Sample.java" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1430" />
+    <option name="x" value="64" />
     <option name="y" value="764" />
     <option name="width" value="1303" />
     <option name="height" value="773" />
@@ -249,7 +271,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1430" y="764" width="1303" height="773" extended-state="6" />
+    <frame x="64" y="764" width="1303" height="773" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -291,6 +313,22 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/com/forismastic/Forismatic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="69" selection-start="2880" selection-end="2880" vertical-scroll-proportion="-0.07317073" vertical-offset="1155" max-vertical-offset="1815">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/forismastic/Sample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="45" selection-start="497" selection-end="497" vertical-scroll-proportion="0.40605095" vertical-offset="0" max-vertical-offset="628">
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
 
