@@ -4,7 +4,7 @@ import com.forismastic.Forismatic.Quote;
 
 public class Sample {
 	public static void main(String[] args) {
-		Quote quote = null;
+		Quote quote;
 		for(int i = 0; i < 5; i++) {
 			if(i % 2 == 0)
 				quote = new Forismatic(Forismatic.RUSSIAN).getQuote();
@@ -16,6 +16,7 @@ public class Sample {
 			try {
 				Thread.sleep(3000);
 			} catch(InterruptedException e) {
+                e.printStackTrace();
 			}
 		}
 	}

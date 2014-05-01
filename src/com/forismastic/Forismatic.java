@@ -29,16 +29,20 @@ public class Forismatic {
 	private final static String XML_QUOTE_TEXT_AUTHOR_PATH = "/forismatic/quote/quoteAuthor";
 	public final static String RUSSIAN = "ru";
 	public final static String ENGLISH = "en";
+
+    private final static int MIN = 1;
+    private final static int MAX = 999999;
+
 	private String language;
 	
 	public class Quote {
 		private String quoteText;
 		private String quoteAuthor;
-		
+
 		public Quote() {
-			
+
 		}
-		
+
 		public Quote(String quoteText, String quoteAuthor) {
 			this.quoteText = quoteText;
 			this.quoteAuthor = quoteAuthor;
@@ -89,8 +93,8 @@ public class Forismatic {
 		try {
 			text = xPath.evaluate(XML_QUOTE_TEXT_PATH, source1);
 			author = xPath.evaluate(XML_QUOTE_TEXT_AUTHOR_PATH, source2);
-		} catch(XPathException exception) {
-			exception.printStackTrace();
+		} catch(XPathException e) {
+			e.printStackTrace();
 		}
 		return new Quote(text, author);
 	}
@@ -101,8 +105,7 @@ public class Forismatic {
 									 API_FORMAT_TITLE + "=" + API_XML + "&" + API_KEY_TITLE + "=" + getRandom().toString() + "&" +
 									 API_LANG_TITLE + "=" + language;
 		try {
-			URL url = new URL(BASE_URL);
-			URLConnection connection = url.openConnection();
+			URLConnection connection = new URL(BASE_URL).openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestProperty("charset", "utf-8");
 			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
@@ -110,18 +113,16 @@ public class Forismatic {
 			writer.flush();
 			xmlString = convertInputStreamToString(connection);
 			writer.close();
-		} catch(MalformedURLException exception) {
-			exception.printStackTrace();
-		} catch (IOException exception) {
-			exception.printStackTrace();
+		} catch(MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return xmlString;
 	}
 
 	private Integer getRandom() {
-		int min = 1, max = 999999;
-		Random random = new Random();
-		return random.nextInt((max - min) + 1) + min;
+        return new Random().nextInt((MAX - MIN) + 1) + MIN;
 	}
 	
 	private String convertInputStreamToString(URLConnection connection) {
@@ -132,10 +133,10 @@ public class Forismatic {
 				xmlString += line;
 			}
 			reader.close();
-		} catch(UnsupportedEncodingException exception) {
-			exception.printStackTrace();
-		} catch (IOException exception) {
-			exception.printStackTrace();
+		} catch(UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return xmlString;
 	}
