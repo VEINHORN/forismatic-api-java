@@ -63,9 +63,6 @@ String quoteText = quote.getQuoteText();
 String quoteAuthor = quote.getQuoteAuthor();
 ```
 
-To use this library in your project, just add Forismatic.java class or jar file.
-[Download forismatic-api-java jar](https://dl.dropboxusercontent.com/s/uvr6ns972q8zg6f/forismatic-api-java.jar?dl=1&token_hash=AAEx4n8XUoC_SSSMuxHARTMQ_JPHK17Rceb2ihOdtziEYQ)  
-
 ### For Android developers
 
 To use this library you need the minimum api level 8. Also add the following to your Manifest:
