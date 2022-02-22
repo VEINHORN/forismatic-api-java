@@ -1,4 +1,4 @@
-package com.forismastic;
+package com.veinhorn.forismastic.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import javax.xml.xpath.XPathFactory;
 import org.xml.sax.InputSource;
 
 public class Forismatic {
-	private final static String BASE_URL = "http://api.forismatic.com/api/1.0/";
+	private final static String BASE_URL = "https://api.forismatic.com/api/1.0/";
 	private final static String API_METHOD_TITLE = "method";
 	private final static String API_FORMAT_TITLE = "format";
 	private final static String API_KEY_TITLE = "key";
@@ -34,36 +34,6 @@ public class Forismatic {
     private final static int MAX = 999999;
 
 	private String language;
-	
-	public class Quote {
-		private String quoteText;
-		private String quoteAuthor;
-
-		public Quote() {
-
-		}
-
-		public Quote(String quoteText, String quoteAuthor) {
-			this.quoteText = quoteText;
-			this.quoteAuthor = quoteAuthor;
-		}
-		
-		public String getQuoteText() {
-			return quoteText;
-		}
-
-		public void setQuoteText(String quoteText) {
-			this.quoteText = quoteText;
-		}
-
-		public String getQuoteAuthor() {
-			return quoteAuthor;
-		}
-
-		public void setQuoteAuthor(String quoteAuthor) {
-			this.quoteAuthor = quoteAuthor;
-		}
-	}
 	
 	public Forismatic() {
 		this.language = RUSSIAN;
