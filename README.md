@@ -1,8 +1,40 @@
 # forismatic-api-java
 
+[![](https://jitpack.io/v/VEINHORN/forismatic-api-java.svg)](https://jitpack.io/#VEINHORN/forismatic-api-java)
+
 [![ScreenShot](http://i.imgur.com/ueC0i4f.png)](http://forismatic.com/ru/)
 
-##### Forismatic.com API client for Java. It's a simple way to get most inspirational quotes. With this library you can get best quotes of famous people.
+It's an Java client for the forismatic.com API. You can use this library in your Java project to get access to the 
+best quotes of famous people.
+
+## Dependency
+
+### Using JitPack
+
+__Step 1.__ Add the JitPack repository to your build file:
+
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+	</repository>
+</repositories>
+```
+
+__Step 2.__ Add the dependency
+
+```xml
+<dependency>
+    <groupId>com.github.VEINHORN</groupId>
+	<artifactId>forismatic-api-java</artifactId>
+	<version>master-SNAPSHOT</version>
+</dependency>
+```
+
+You can specify master-SNAPSHOT in version, or use version from JitPack label above.
+
+## Usage
 
 To get a Quote object you need to call getQuote() method:
 
