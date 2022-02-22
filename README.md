@@ -28,7 +28,7 @@ __Step 2.__ Add the dependency
 <dependency>
     <groupId>com.github.VEINHORN</groupId>
     <artifactId>forismatic-api-java</artifactId>
-    <version>master-83839289c6-1</version>
+    <version>8ef80bbefc</version>
 </dependency>
 ```
 
