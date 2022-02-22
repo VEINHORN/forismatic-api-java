@@ -12,6 +12,7 @@ import java.util.Optional;
 class XmlParser {
     private final static String XML_QUOTE_TEXT_PATH = "/forismatic/quote/quoteText";
     private final static String XML_QUOTE_TEXT_AUTHOR_PATH = "/forismatic/quote/quoteAuthor";
+    private final static String XML_QUOTE_LINK_PATH = "/forismatic/quote/quoteLink";
 
     private String quoteAsXml;
     private XPath xPath;
@@ -25,7 +26,7 @@ class XmlParser {
         Quote quote = null;
 
         try {
-            quote = new Quote(parseQuoteText(), parseQuoteAuthor());
+            quote = new Quote(parseQuoteText(), parseQuoteAuthor(), parseQuoteLink());
         } catch(XPathException e) {
             System.out.println(String.format("Failed parse quote because of: %s", e.getMessage()));
             e.printStackTrace();
@@ -39,7 +40,16 @@ class XmlParser {
     }
 
     private Optional<String> parseQuoteAuthor() throws XPathExpressionException {
-        String quoteAuthor = xPath.evaluate(XML_QUOTE_TEXT_AUTHOR_PATH, new InputSource(new StringReader(quoteAsXml)));
+        String quoteAuthor = xPath.evaluate(XML_QUOTE_TEXT_AUTHOR_PATH, quoteAsInputSource());
         return quoteAuthor != null && !quoteAuthor.isEmpty() ? Optional.of(quoteAuthor) : Optional.empty();
+    }
+
+    private Optional<String> parseQuoteLink() throws XPathExpressionException {
+        String quoteLink = xPath.evaluate(XML_QUOTE_LINK_PATH, quoteAsInputSource());
+        return quoteLink != null && !quoteLink.isEmpty() ? Optional.of(quoteLink) : Optional.empty();
+    }
+
+    private InputSource quoteAsInputSource() {
+        return new InputSource(new StringReader(quoteAsXml));
     }
 }
