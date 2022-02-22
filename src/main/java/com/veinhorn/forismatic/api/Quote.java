@@ -1,14 +1,13 @@
 package com.veinhorn.forismatic.api;
 
+import java.util.Optional;
+
 public class Quote {
-    private String quoteText;
-    private String quoteAuthor;
+    private final String quoteText;
+    private final Optional<String> quoteAuthor;
 
-    public Quote() {
 
-    }
-
-    public Quote(String quoteText, String quoteAuthor) {
+    public Quote(String quoteText, Optional<String> quoteAuthor) {
         this.quoteText = quoteText;
         this.quoteAuthor = quoteAuthor;
     }
@@ -17,15 +16,7 @@ public class Quote {
         return quoteText;
     }
 
-    public void setQuoteText(String quoteText) {
-        this.quoteText = quoteText;
-    }
-
-    public String getQuoteAuthor() {
+    public Optional<String> getQuoteAuthor() {
         return quoteAuthor;
-    }
-
-    public void setQuoteAuthor(String quoteAuthor) {
-        this.quoteAuthor = quoteAuthor;
     }
 }

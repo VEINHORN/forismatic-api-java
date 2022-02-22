@@ -3,13 +3,8 @@ package com.veinhorn.forismatic.api;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.xml.sax.InputSource;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathException;
-import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.Random;
 
 public class Forismatic {
@@ -20,8 +15,6 @@ public class Forismatic {
 	private final static String API_LANG_TITLE = "lang";
 	private final static String API_METHOD = "getQuote";
 	private final static String API_XML = "xml";
-	private final static String XML_QUOTE_TEXT_PATH = "/forismatic/quote/quoteText";
-	private final static String XML_QUOTE_TEXT_AUTHOR_PATH = "/forismatic/quote/quoteAuthor";
 	public final static String RUSSIAN = "ru";
 	public final static String ENGLISH = "en";
 
@@ -47,23 +40,10 @@ public class Forismatic {
 	}
 	
 	public Quote getQuote() throws IOException {
-		String quoteAsXml = retrieveQuoteAsXML();
-		return parseXML(quoteAsXml);
+		return new XmlParser(retrieveQuoteAsXML()).parse();
 	}
 	
-	private Quote parseXML(String xmlString) {
-		XPathFactory xPathFactory = XPathFactory.newInstance();
-		XPath xPath= xPathFactory.newXPath();
-		InputSource source1 = new InputSource(new StringReader(xmlString)), source2 = new InputSource(new StringReader(xmlString));
-		String text = null, author = null;
-		try {
-			text = xPath.evaluate(XML_QUOTE_TEXT_PATH, source1);
-			author = xPath.evaluate(XML_QUOTE_TEXT_AUTHOR_PATH, source2);
-		} catch(XPathException e) {
-			e.printStackTrace();
-		}
-		return new Quote(text, author);
-	}
+
 	
 	private String retrieveQuoteAsXML() throws IOException {
 		String urlParametersString = API_METHOD_TITLE + "=" + API_METHOD +
