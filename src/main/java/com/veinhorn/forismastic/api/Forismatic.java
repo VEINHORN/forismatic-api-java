@@ -1,21 +1,16 @@
 package com.veinhorn.forismastic.api;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Random;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.xml.sax.InputSource;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathFactory;
-
-import org.xml.sax.InputSource;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Random;
 
 public class Forismatic {
 	private final static String BASE_URL = "https://api.forismatic.com/api/1.0/";
@@ -51,8 +46,9 @@ public class Forismatic {
 		return language;
 	}
 	
-	public Quote getQuote() {
-		return parseXML(getXML());
+	public Quote getQuote() throws IOException {
+		String quoteAsXml = retrieveQuoteAsXML();
+		return parseXML(quoteAsXml);
 	}
 	
 	private Quote parseXML(String xmlString) {
@@ -69,45 +65,25 @@ public class Forismatic {
 		return new Quote(text, author);
 	}
 	
-	private String getXML() {
-		String xmlString = "";
-		String urlParametersString = API_METHOD_TITLE + "=" + API_METHOD + "&" +
-									 API_FORMAT_TITLE + "=" + API_XML + "&" + API_KEY_TITLE + "=" + getRandom().toString() + "&" +
-									 API_LANG_TITLE + "=" + language;
-		try {
-			URLConnection connection = new URL(BASE_URL).openConnection();
-			connection.setDoOutput(true);
-			connection.setRequestProperty("charset", "utf-8");
-			OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
-			writer.write(urlParametersString);
-			writer.flush();
-			xmlString = convertInputStreamToString(connection);
-			writer.close();
-		} catch(MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+	private String retrieveQuoteAsXML() throws IOException {
+		String urlParametersString = API_METHOD_TITLE + "=" + API_METHOD +
+									"&" + API_FORMAT_TITLE + "=" + API_XML +
+									"&" + API_KEY_TITLE + "=" + getRandom().toString() +
+									"&" + API_LANG_TITLE + "=" + language;
+		String url = String.format("%s?%s", BASE_URL, urlParametersString);
+
+		OkHttpClient client = new OkHttpClient();
+
+		Request request = new Request.Builder()
+				.url(url)
+				.build();
+
+		try (Response response = client.newCall(request).execute()) {
+			return response.body().string();
 		}
-		return xmlString;
 	}
 
 	private Integer getRandom() {
         return new Random().nextInt((MAX - MIN) + 1) + MIN;
-	}
-	
-	private String convertInputStreamToString(URLConnection connection) {
-		String xmlString = "", line = "";
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-			while((line = reader.readLine()) != null) {
-				xmlString += line;
-			}
-			reader.close();
-		} catch(UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return xmlString;
 	}
 }

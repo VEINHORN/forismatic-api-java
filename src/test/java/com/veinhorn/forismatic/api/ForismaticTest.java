@@ -5,12 +5,14 @@ import com.veinhorn.forismastic.api.Quote;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 public class ForismaticTest {
     @Ignore
     @Test
-    public void testForismaticApi() {
+    public void testForismaticApi() throws IOException {
         Quote quote;
 
         for(int i = 0; i < 5; i++) {
@@ -32,7 +34,7 @@ public class ForismaticTest {
     }
 
     @Test
-    public void testApi() {
+    public void testApi() throws IOException {
         Quote quote = new Forismatic(Forismatic.RUSSIAN).getQuote();
 
         assertNotNull(quote);
