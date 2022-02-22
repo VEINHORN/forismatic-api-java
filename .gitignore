@@ -1,2 +1,4 @@
-/bin
-/src/forismatic/Test.java
+.idea/
+target/
+*.eml
+*.iml
