@@ -1,13 +1,11 @@
 package com.veinhorn.forismatic.api;
 
-import com.veinhorn.forismastic.api.Forismatic;
-import com.veinhorn.forismastic.api.Quote;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class ForismaticTest {
     @Ignore

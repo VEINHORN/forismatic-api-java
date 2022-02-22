@@ -1,4 +1,4 @@
-package com.veinhorn.forismastic.api;
+package com.veinhorn.forismatic.api;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

@@ -1,4 +1,4 @@
-package com.veinhorn.forismastic.api;
+package com.veinhorn.forismatic.api;
 
 public class Quote {
     private String quoteText;
