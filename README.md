@@ -18,7 +18,7 @@ __Step 1.__ Add the JitPack repository to your build file:
     <repository>
         <id>jitpack.io</id>
         <url>https://jitpack.io</url>
-	</repository>
+    </repository>
 </repositories>
 ```
 
@@ -27,12 +27,12 @@ __Step 2.__ Add the dependency
 ```xml
 <dependency>
     <groupId>com.github.VEINHORN</groupId>
-	<artifactId>forismatic-api-java</artifactId>
-	<version>master-SNAPSHOT</version>
+    <artifactId>forismatic-api-java</artifactId>
+    <version>master-83839289c6-1</version>
 </dependency>
 ```
 
-You can specify master-SNAPSHOT in version, or use version from JitPack label above.
+You can specify version from JitPack label above or use __master-SNAPSHOT__ to get latest.
 
 ## Usage
 
