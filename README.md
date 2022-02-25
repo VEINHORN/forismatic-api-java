@@ -26,9 +26,9 @@ __Step 2.__ Add the dependency
 
 ```xml
 <dependency>
-    <groupId>com.github.VEINHORN</groupId>
-    <artifactId>forismatic-api-java</artifactId>
-    <version>8ef80bbefc</version>
+    <groupId>com.github.VEINHORN.forismatic-api-java</groupId>
+    <artifactId>forismatic-client</artifactId>
+    <version>3a7c2c856e</version>
 </dependency>
 ```
 
@@ -42,17 +42,18 @@ To get a Quote object you need to call getQuote() method:
 Quote quote = new Forismatic().getQuote();
 ```
 
-API supports English & Russian languages. The default language for quotes is Russian. You can change it by putting constant to constructor:
+API supports English & Russian languages. The default language for quotes is English. You can change it
+by putting constant to constructor:
 
 ```java
-Quote quote = new Forismatic(Forismatic.ENGLISH).getQuote();
+Quote quote = new Forismatic(Language.ENGLISH).getQuote();
 ```
 
 or call setLanguage() method:
 
 ```java
 Forismatic forismatic = new Forismatic();
-forismatic.setLanguage();
+forismatic.setLanguage(Language.ENGLISH);
 Quote quote = forismatic.getQuote();
 ```
 
@@ -60,7 +61,7 @@ To get quote text and author, call getQuoteText() and getQuoteAuthor() methods:
 
 ```java
 String quoteText = quote.getQuoteText();
-String quoteAuthor = quote.getQuoteAuthor();
+Optional<String> quoteAuthor = quote.getQuoteAuthor();
 ```
 
 ### For Android developers

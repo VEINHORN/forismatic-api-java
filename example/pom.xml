@@ -20,9 +20,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.VEINHORN</groupId>
-            <artifactId>forismatic-api-java</artifactId>
-            <version>8ef80bbefc</version>
+            <groupId>com.github.VEINHORN.forismatic-api-java</groupId>
+            <artifactId>forismatic-client</artifactId>
+            <version>3a7c2c856e</version>
         </dependency>
     </dependencies>
 </project>
