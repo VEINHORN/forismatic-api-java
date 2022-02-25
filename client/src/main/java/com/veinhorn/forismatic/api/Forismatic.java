@@ -6,6 +6,9 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
+/**
+ * It's a client for accessing Forismatic API
+ */
 public class Forismatic {
 	private Language language;
 	
