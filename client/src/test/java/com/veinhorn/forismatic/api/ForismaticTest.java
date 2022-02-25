@@ -15,9 +15,9 @@ public class ForismaticTest {
 
         for(int i = 0; i < 5; i++) {
             if(i % 2 == 0)
-                quote = new Forismatic(Forismatic.RUSSIAN).getQuote();
+                quote = new Forismatic(Language.RUSSIAN).getQuote();
             else {
-                quote = new Forismatic(Forismatic.ENGLISH).getQuote();
+                quote = new Forismatic(Language.ENGLISH).getQuote();
             }
 
             System.out.println(quote.getQuoteText());
@@ -33,7 +33,7 @@ public class ForismaticTest {
 
     @Test
     public void testApi() throws IOException {
-        Quote quote = new Forismatic(Forismatic.RUSSIAN).getQuote();
+        Quote quote = new Forismatic(Language.RUSSIAN).getQuote();
 
         assertNotNull(quote);
     }

@@ -15,27 +15,25 @@ public class Forismatic {
 	private final static String API_LANG_TITLE = "lang";
 	private final static String API_METHOD = "getQuote";
 	private final static String API_XML = "xml";
-	public final static String RUSSIAN = "ru";
-	public final static String ENGLISH = "en";
 
     private final static int MIN = 1;
     private final static int MAX = 999999;
 
-	private String language;
+	private Language language;
 	
 	public Forismatic() {
-		this.language = RUSSIAN;
+		this.language = Language.RUSSIAN;
 	}
 	
-	public Forismatic(String language) {
+	public Forismatic(Language language) {
 		this.language = language;
 	}
 	
-	public void setLanguage(String language) {
+	public void setLanguage(Language language) {
 		this.language = language;
 	}
 	
-	public String getLanguage() {
+	public Language getLanguage() {
 		return language;
 	}
 	
@@ -49,7 +47,7 @@ public class Forismatic {
 		String urlParametersString = API_METHOD_TITLE + "=" + API_METHOD +
 									"&" + API_FORMAT_TITLE + "=" + API_XML +
 									"&" + API_KEY_TITLE + "=" + getRandom().toString() +
-									"&" + API_LANG_TITLE + "=" + language;
+									"&" + API_LANG_TITLE + "=" + language.value();
 		String url = String.format("%s?%s", BASE_URL, urlParametersString);
 
 		OkHttpClient client = new OkHttpClient();
