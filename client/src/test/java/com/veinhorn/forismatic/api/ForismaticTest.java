@@ -1,6 +1,5 @@
 package com.veinhorn.forismatic.api;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -8,33 +7,11 @@ import java.io.IOException;
 import static org.junit.Assert.assertNotNull;
 
 public class ForismaticTest {
-    @Ignore
-    @Test
-    public void testForismaticApi() throws IOException {
-        Quote quote;
-
-        for(int i = 0; i < 5; i++) {
-            if(i % 2 == 0)
-                quote = new Forismatic(Language.RUSSIAN).getQuote();
-            else {
-                quote = new Forismatic(Language.ENGLISH).getQuote();
-            }
-
-            System.out.println(quote.getQuoteText());
-            System.out.println(quote.getQuoteAuthor());
-
-            try {
-                Thread.sleep(3000);
-            } catch(InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     @Test
     public void testApi() throws IOException {
         Quote quote = new Forismatic(Language.RUSSIAN).getQuote();
 
         assertNotNull(quote);
+        assertNotNull(quote.getQuoteText());
     }
 }
