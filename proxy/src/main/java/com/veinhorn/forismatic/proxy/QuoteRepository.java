@@ -1,4 +1,8 @@
 package com.veinhorn.forismatic.proxy;
 
-public interface QuoteRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface QuoteRepository extends CrudRepository<QuoteEntity, Integer> {
 }
