@@ -1,4 +1,4 @@
-package com.veinhorn.forismatic.proxy;
+package com.veinhorn.forismatic.proxy.persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,12 +8,19 @@ import javax.persistence.Id;
 @Entity(name = "QUOTE")
 public class QuoteEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String text;
 
     private String hash;
+
+    public QuoteEntity() {}
+
+    public QuoteEntity(String text, String hash) {
+        this.text = text;
+        this.hash = hash;
+    }
 
     public Integer getId() {
         return id;
