@@ -32,6 +32,7 @@ public class QuoteServiceImpl implements QuoteService {
         } catch (DuplicateQuoteException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            // TODO: Case when we cannot get quote from Forismatic API
             e.printStackTrace();
         }
 
