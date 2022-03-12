@@ -3,7 +3,7 @@ package com.veinhorn.forismatic.proxy.controller;
 import com.veinhorn.forismatic.api.Quote;
 import com.veinhorn.forismatic.proxy.QuoteDto;
 import com.veinhorn.forismatic.proxy.persistence.QuoteEntity;
-import com.veinhorn.forismatic.proxy.QuoteRepository;
+import com.veinhorn.forismatic.proxy.persistence.QuoteRepository;
 import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
