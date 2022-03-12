@@ -20,8 +20,11 @@ public class QuoteEntity {
 
     private String hash;
 
-    public QuoteEntity(String text, String hash) {
+    private String author;
+
+    public QuoteEntity(String text, String hash, String author) {
         this.text = text;
         this.hash = hash;
+        this.author = author;
     }
 }

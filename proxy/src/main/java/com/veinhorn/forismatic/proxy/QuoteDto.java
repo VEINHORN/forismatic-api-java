@@ -1,13 +1,13 @@
 package com.veinhorn.forismatic.proxy;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter @Setter
+@RequiredArgsConstructor
 public class QuoteDto {
-    private Integer id;
-    private String text;
-    private String link;
+    private final Integer id;
+    private final String text;
+    private final String author;
 }

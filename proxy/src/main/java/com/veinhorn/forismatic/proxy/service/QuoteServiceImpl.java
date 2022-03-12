@@ -24,9 +24,7 @@ public class QuoteServiceImpl implements QuoteService {
         try {
             QuoteEntity saved = save(new Forismatic().getQuote());
 
-            QuoteDto dto = new QuoteDto();
-            dto.setId(saved.getId());
-            dto.setText(saved.getText());
+            QuoteDto dto = new QuoteDto(saved.getId(), saved.getText(), saved.getAuthor());
 
             return Optional.of(dto);
         } catch (DuplicateQuoteException e) {
@@ -45,8 +43,11 @@ public class QuoteServiceImpl implements QuoteService {
 
         // If hash of quote text does not exist in db, we save this new quote
         if (quotes.isEmpty()) {
-            return repository.save(new QuoteEntity(quote.getQuoteText(), hash));
+            return repository.save(new QuoteEntity(quote.getQuoteText(), hash, quote.getQuoteAuthor().orElse(null)));
         } else if (quotes.size() == 1) {
+            QuoteEntity existing = quotes.get(0);
+            // Update author of existing quote if it doesn't exist in database
+            if (existing.getAuthor() == null) quote.getQuoteAuthor().ifPresent(existing::setAuthor);
             return quotes.get(0);
         }
 
