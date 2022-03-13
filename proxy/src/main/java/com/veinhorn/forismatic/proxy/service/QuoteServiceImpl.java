@@ -37,6 +37,11 @@ public class QuoteServiceImpl implements QuoteService {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<QuoteDto> getQuote(Integer id) {
+        return repository.findById(id).map(quote -> new QuoteDto(quote.getId(), quote.getText(), quote.getAuthor()));
+    }
+
     private QuoteEntity save(Quote quote) throws DuplicateQuoteException {
         String hash = DigestUtils.sha1Hex(quote.getQuoteText());
         List<QuoteEntity> quotes = repository.findByHash(hash);

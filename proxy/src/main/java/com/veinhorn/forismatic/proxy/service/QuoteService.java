@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface QuoteService {
     Optional<QuoteDto> getRandomQuote();
+    Optional<QuoteDto> getQuote(Integer id);
 }
