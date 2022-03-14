@@ -1,6 +1,6 @@
 package com.veinhorn.forismatic.proxy.service;
 
-import com.veinhorn.forismatic.proxy.QuoteDto;
+import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 
 import java.util.Optional;
 

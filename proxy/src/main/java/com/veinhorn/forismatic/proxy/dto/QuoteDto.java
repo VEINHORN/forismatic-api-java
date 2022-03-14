@@ -1,4 +1,4 @@
-package com.veinhorn.forismatic.proxy;
+package com.veinhorn.forismatic.proxy.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

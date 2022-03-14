@@ -1,11 +1,12 @@
-package com.veinhorn.forismatic.proxy.service;
+package com.veinhorn.forismatic.proxy.service.impl;
 
 import com.veinhorn.forismatic.api.Forismatic;
 import com.veinhorn.forismatic.api.Quote;
-import com.veinhorn.forismatic.proxy.QuoteDto;
-import com.veinhorn.forismatic.proxy.persistence.QuoteRepository;
+import com.veinhorn.forismatic.proxy.dto.QuoteDto;
+import com.veinhorn.forismatic.proxy.persistence.repository.QuoteRepository;
 import com.veinhorn.forismatic.proxy.exception.DuplicateQuoteException;
 import com.veinhorn.forismatic.proxy.persistence.QuoteEntity;
+import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

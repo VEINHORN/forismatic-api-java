@@ -1,9 +1,9 @@
 package com.veinhorn.forismatic.proxy.controller;
 
-import com.veinhorn.forismatic.proxy.QuoteDto;
+import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 import com.veinhorn.forismatic.proxy.exception.QuoteNotFoundException;
 import com.veinhorn.forismatic.proxy.persistence.QuoteEntity;
-import com.veinhorn.forismatic.proxy.persistence.QuoteRepository;
+import com.veinhorn.forismatic.proxy.persistence.repository.QuoteRepository;
 import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +34,7 @@ public class QuoteController {
                 .orElseThrow(QuoteNotFoundException::new);
     }
 
+    // TODO: Should be available only for registered user
     @GetMapping("/quotes/all")
     public Iterable<QuoteEntity> getAllQuotes() {
         return repository.findAll();
