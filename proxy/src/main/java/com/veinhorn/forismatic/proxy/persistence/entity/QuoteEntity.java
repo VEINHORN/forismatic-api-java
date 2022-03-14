@@ -1,4 +1,4 @@
-package com.veinhorn.forismatic.proxy.persistence;
+package com.veinhorn.forismatic.proxy.persistence.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +19,8 @@ public class QuoteEntity {
     private String hash;
 
     private String author;
+
+    private AuthorEntity authorEntity;
 
     public QuoteEntity(String text, String hash, String author) {
         this.text = text;

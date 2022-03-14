@@ -1,6 +1,6 @@
 package com.veinhorn.forismatic.proxy.persistence.repository;
 
-import com.veinhorn.forismatic.proxy.persistence.QuoteEntity;
+import com.veinhorn.forismatic.proxy.persistence.entity.QuoteEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

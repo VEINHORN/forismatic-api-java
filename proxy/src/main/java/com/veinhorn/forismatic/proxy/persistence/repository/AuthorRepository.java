@@ -21,8 +21,8 @@ public class AuthorRepository {
     }
 
     private List<String> findAuthors() {
-        return (List<String>) entityManager
-                .createQuery("SELECT author FROM QuoteEntity WHERE author IS NOT NULL GROUP BY author")
-                .getResultList();
+        String query = "SELECT author FROM QuoteEntity WHERE author IS NOT NULL GROUP BY author ORDER BY author";
+
+        return (List<String>) entityManager.createQuery(query).getResultList();
     }
 }

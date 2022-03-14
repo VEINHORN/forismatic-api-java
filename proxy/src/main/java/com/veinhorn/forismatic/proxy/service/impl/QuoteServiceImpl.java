@@ -5,7 +5,7 @@ import com.veinhorn.forismatic.api.Quote;
 import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 import com.veinhorn.forismatic.proxy.persistence.repository.QuoteRepository;
 import com.veinhorn.forismatic.proxy.exception.DuplicateQuoteException;
-import com.veinhorn.forismatic.proxy.persistence.QuoteEntity;
+import com.veinhorn.forismatic.proxy.persistence.entity.QuoteEntity;
 import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;

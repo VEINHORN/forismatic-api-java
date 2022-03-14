@@ -2,7 +2,7 @@ package com.veinhorn.forismatic.proxy.controller;
 
 import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 import com.veinhorn.forismatic.proxy.exception.QuoteNotFoundException;
-import com.veinhorn.forismatic.proxy.persistence.QuoteEntity;
+import com.veinhorn.forismatic.proxy.persistence.entity.QuoteEntity;
 import com.veinhorn.forismatic.proxy.persistence.repository.QuoteRepository;
 import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
