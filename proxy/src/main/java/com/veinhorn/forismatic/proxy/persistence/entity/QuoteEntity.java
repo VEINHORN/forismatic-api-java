@@ -18,13 +18,16 @@ public class QuoteEntity {
 
     private String hash;
 
-    private String author;
+    @Column(name = "author")
+    private String authorName;
 
-    private AuthorEntity authorEntity;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private AuthorEntity author;
 
-    public QuoteEntity(String text, String hash, String author) {
+    public QuoteEntity(String text, String hash, String authorName) {
         this.text = text;
         this.hash = hash;
-        this.author = author;
+        this.authorName = authorName;
     }
 }

@@ -25,7 +25,7 @@ public class QuoteServiceImpl implements QuoteService {
         try {
             QuoteEntity saved = save(new Forismatic().getQuote());
 
-            QuoteDto dto = new QuoteDto(saved.getId(), saved.getText(), saved.getAuthor());
+            QuoteDto dto = new QuoteDto(saved.getId(), saved.getText(), saved.getAuthorName());
 
             return Optional.of(dto);
         } catch (DuplicateQuoteException e) {
@@ -40,7 +40,7 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public Optional<QuoteDto> getQuote(Integer id) {
-        return repository.findById(id).map(quote -> new QuoteDto(quote.getId(), quote.getText(), quote.getAuthor()));
+        return repository.findById(id).map(quote -> new QuoteDto(quote.getId(), quote.getText(), quote.getAuthorName()));
     }
 
     private QuoteEntity save(Quote quote) throws DuplicateQuoteException {
@@ -53,7 +53,7 @@ public class QuoteServiceImpl implements QuoteService {
         } else if (quotes.size() == 1) {
             QuoteEntity existing = quotes.get(0);
             // Update author of existing quote if it doesn't exist in database
-            if (existing.getAuthor() == null) quote.getQuoteAuthor().ifPresent(existing::setAuthor);
+            if (existing.getAuthorName() == null) quote.getQuoteAuthor().ifPresent(existing::setAuthorName);
             return quotes.get(0);
         }
 
