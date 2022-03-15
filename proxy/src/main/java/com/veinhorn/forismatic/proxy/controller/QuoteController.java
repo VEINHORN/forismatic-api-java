@@ -35,7 +35,7 @@ public class QuoteController {
     }
 
     // TODO: Should be available only for registered user
-    @GetMapping("/quotes/all")
+    @GetMapping("/quotes")
     public Iterable<QuoteEntity> getAllQuotes() {
         return repository.findAll();
     }

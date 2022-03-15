@@ -1,9 +1,7 @@
 package com.veinhorn.forismatic.proxy.persistence.repository;
 
 import com.veinhorn.forismatic.proxy.dto.AuthorDto;
-import com.veinhorn.forismatic.proxy.persistence.entity.AuthorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
