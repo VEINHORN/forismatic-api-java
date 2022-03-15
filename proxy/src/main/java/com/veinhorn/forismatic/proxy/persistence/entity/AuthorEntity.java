@@ -10,8 +10,15 @@ import javax.persistence.*;
 @Table(name = "AUTHOR")
 @Getter @Setter @NoArgsConstructor
 public class AuthorEntity {
+    public static final String UNKNOWN = "Unknown";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
+
+    public AuthorEntity(String name) {
+        this.name = name;
+    }
 }
