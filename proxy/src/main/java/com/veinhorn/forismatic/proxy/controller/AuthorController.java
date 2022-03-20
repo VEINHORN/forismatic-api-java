@@ -3,10 +3,11 @@ package com.veinhorn.forismatic.proxy.controller;
 import com.veinhorn.forismatic.proxy.dto.AuthorDto;
 import com.veinhorn.forismatic.proxy.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class AuthorController {
@@ -14,7 +15,8 @@ public class AuthorController {
     private AuthorService service;
 
     @GetMapping("/authors")
-    public List<AuthorDto> getAllAuthors() {
-        return service.getAllAuthors();
+    public Page<AuthorDto> getAllAuthors(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                         @RequestParam(name = "size", defaultValue = "5") Integer size) {
+        return service.getAllAuthors(PageRequest.of(page, size));
     }
 }

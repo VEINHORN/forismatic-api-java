@@ -1,9 +1,9 @@
 package com.veinhorn.forismatic.proxy.service;
 
 import com.veinhorn.forismatic.proxy.dto.AuthorDto;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 public interface AuthorService {
-    List<AuthorDto> getAllAuthors();
+    Page<AuthorDto> getAllAuthors(PageRequest request);
 }
