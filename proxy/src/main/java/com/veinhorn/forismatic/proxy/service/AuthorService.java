@@ -2,8 +2,8 @@ package com.veinhorn.forismatic.proxy.service;
 
 import com.veinhorn.forismatic.proxy.dto.AuthorDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 public interface AuthorService {
-    Page<AuthorDto> getAllAuthors(PageRequest request);
+    Page<AuthorDto> getAllAuthors(Pageable pageable);
 }
