@@ -9,5 +9,6 @@ import lombok.Setter;
 @Getter @Setter
 @RequiredArgsConstructor
 public class AuthorDto {
+    private final Integer id;
     private final String name;
 }
