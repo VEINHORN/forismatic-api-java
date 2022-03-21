@@ -8,10 +8,12 @@ import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
+@RequestMapping("/quotes")
 public class QuoteController {
     @Autowired
     private QuoteService service;
@@ -19,7 +21,7 @@ public class QuoteController {
     @Autowired
     private QuoteRepository repository;
 
-    @GetMapping("/quotes/random")
+    @GetMapping("/random")
     public QuoteDto getRandomQuote() throws ResponseStatusException {
         return service
                 .getRandomQuote()
@@ -27,7 +29,7 @@ public class QuoteController {
 
     }
 
-    @GetMapping("/quotes/{id}")
+    @GetMapping("/{id}")
     public QuoteDto getQuote(@PathVariable Integer id) {
         return service
                 .getQuote(id)
@@ -35,7 +37,7 @@ public class QuoteController {
     }
 
     // TODO: Should be available only for registered user
-    @GetMapping("/quotes")
+    @GetMapping
     public Iterable<QuoteEntity> getAllQuotes() {
         return repository.findAll();
     }
