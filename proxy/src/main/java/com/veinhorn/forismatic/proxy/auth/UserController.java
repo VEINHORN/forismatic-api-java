@@ -3,7 +3,10 @@ package com.veinhorn.forismatic.proxy.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
+@RequestMapping("/auth")
 public class UserController {
     @Autowired
     private UserAuthenticationService authentication;
@@ -21,8 +24,10 @@ public class UserController {
                 .orElseThrow(() -> new RuntimeException("invalid login and/or password"));
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+    @PostMapping("/login")
+    public String login(@RequestBody Map<String, String> body) {
+        return authentication
+                .login(body.get("username"), body.get("password"))
+                .orElseThrow(() -> new RuntimeException("invalid login and/or username"));
     }
 }

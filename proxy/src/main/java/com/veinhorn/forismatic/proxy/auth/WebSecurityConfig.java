@@ -1,8 +1,5 @@
-package com.veinhorn.forismatic.proxy.configuration;
+package com.veinhorn.forismatic.proxy.auth;
 
-import com.veinhorn.forismatic.proxy.auth.NoRedirectStrategy;
-import com.veinhorn.forismatic.proxy.auth.TokenAuthenticationFilter;
-import com.veinhorn.forismatic.proxy.auth.TokenAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +19,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
-            new AntPathRequestMatcher("/register"),
+            new AntPathRequestMatcher("/auth/**"),
             new AntPathRequestMatcher("/quotes/random"),
             new AntPathRequestMatcher("/quotes/*")
     );
@@ -46,7 +43,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(provider)
                 .addFilterBefore(restAuthenticationFilter(), AnonymousAuthenticationFilter.class)
                 .authorizeRequests()
-                // .antMatchers(PUBLIC_URLS).permitAll()
                 .requestMatchers(PROTECTED_URLS).authenticated()
                 .and()
                 .formLogin().disable()
