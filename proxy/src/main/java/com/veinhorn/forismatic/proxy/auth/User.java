@@ -14,6 +14,9 @@ import java.util.Collection;
 @RequiredArgsConstructor
 @Builder
 public class User implements UserDetails {
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+
     private final String id;
     private final String username;
     private final String password;

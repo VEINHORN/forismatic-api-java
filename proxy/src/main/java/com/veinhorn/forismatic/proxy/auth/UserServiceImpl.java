@@ -13,9 +13,8 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public User save(User user) {
-        UserEntity saved = repository.save(new UserEntity(user.getUsername(), user.getPassword()));
-        return user;
+    public void save(User user) {
+        repository.save(new UserEntity(user.getUsername(), user.getPassword()));
     }
 
     @Override

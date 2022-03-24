@@ -15,8 +15,8 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/register")
-    public String register(@RequestParam("username") final String username,
-                           @RequestParam("password") final String password) {
+    public String register(@RequestParam(User.USERNAME) final String username,
+                           @RequestParam(User.PASSWORD) final String password) {
         userService.save(User.builder().id(username).username(username).password(password).build());
 
         return authentication
@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> body) {
         return authentication
-                .login(body.get("username"), body.get("password"))
+                .login(body.get(User.USERNAME), body.get(User.PASSWORD))
                 .orElseThrow(() -> new RuntimeException("invalid login and/or username"));
     }
 }

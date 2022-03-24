@@ -1,45 +1,55 @@
 package com.veinhorn.forismatic.proxy.auth;
 
+import com.veinhorn.forismatic.proxy.auth.converter.ExtendedInformationConverter;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.impl.compression.GzipCompressionCodec;
+import org.springframework.security.core.token.DefaultToken;
+import org.springframework.security.core.token.Token;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import static io.jsonwebtoken.impl.TextCodec.BASE64;
 
-// TODO: Use TokenService from Spring Secure instead of custom one
 @Service
 public class JWTTokenService implements TokenService, Clock {
     private static final GzipCompressionCodec COMPRESSION_CODEC = new GzipCompressionCodec();
-
-    private String issuer;
-    private String secretKey;
-
-    public JWTTokenService() {
-        super();
-        this.issuer = Objects.requireNonNull("forismatic");
-        this.secretKey = BASE64.encode("www.forismatic.com");
-    }
+    private static final String ISSUER = "forismatic";
+    private static final String SECRET_KEY = BASE64.encode("www.forismatic.com");
 
     @Override
-    public String newToken(Map<String, String> attributes) {
-        final Claims claims = Jwts.claims().setIssuer(issuer).setIssuedAt(new Date());
-        claims.putAll(attributes);
+    public Token allocateToken(String extendedInformation) {
+        Date issuedAt = new Date();
+        final Claims claims = Jwts.claims().setIssuer(ISSUER).setIssuedAt(issuedAt);
+        claims.putAll(new ExtendedInformationConverter(extendedInformation).getExtendedInformation());
 
-        return Jwts
+        String token = Jwts
                 .builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compressWith(COMPRESSION_CODEC)
                 .compact();
+
+        return new DefaultToken(token, issuedAt.getTime(), extendedInformation);
     }
 
     @Override
-    public Map<String, String> verify(String token) {
-        final JwtParser parser = Jwts.parser().requireIssuer(issuer).setClock(this).setSigningKey(secretKey);
-        return parseClaims(() -> parser.parseClaimsJws(token).getBody());
+    public Token verifyToken(String token) {
+        final JwtParser parser = Jwts
+                .parser()
+                .requireIssuer(ISSUER)
+                .setClock(this)
+                .setSigningKey(SECRET_KEY);
+
+        Map<String, String> claims = parseClaims(() -> parser.parseClaimsJws(token).getBody());
+        int issuedAt = Integer.parseInt(claims.get(Claims.ISSUED_AT));
+
+        return new DefaultToken(token, issuedAt, new ExtendedInformationConverter(claims).convert());
     }
 
     @Override

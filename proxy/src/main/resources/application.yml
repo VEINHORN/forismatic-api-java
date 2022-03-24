@@ -5,9 +5,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
-        show_sql: true
-        use_sql_comments: true
-        format_sql: true
+        show_sql: false
+        use_sql_comments: false
+        format_sql: false
   datasource:
     url: "jdbc:postgresql://localhost:5432/forismatic-proxy"
     username: veinhorn

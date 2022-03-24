@@ -1,6 +1,9 @@
 package com.veinhorn.forismatic.proxy.auth;
 
+import com.veinhorn.forismatic.proxy.auth.converter.ExtendedInformationConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.token.Token;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -20,17 +23,24 @@ public class TokenAuthenticationService implements UserAuthenticationService {
         return userService
                 .findByUsername(username)
                 .filter(user -> Objects.equals(password, user.getPassword()))
-                .map(user -> tokenService.newToken(Collections.singletonMap("username", username)));
+                .map(user -> createToken(username).getKey());
     }
 
     @Override
     public Optional<User> findByToken(String token) {
         return Optional
-                .of(tokenService.verify(token))
-                .map(map -> map.get("username"))
+                .of(tokenService.verifyToken(token))
+                .map(UserToken::new)
+                .map(UserToken::getUsername)
                 .flatMap(userService::findByUsername);
     }
 
     @Override
     public void logout(User user) {}
+
+    private Token createToken(String username) {
+        return tokenService.allocateToken(
+                new ExtendedInformationConverter(Collections.singletonMap(User.USERNAME, username)).convert()
+        );
+    }
 }
