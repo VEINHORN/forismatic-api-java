@@ -1,0 +1,48 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <changeSet author="veinhorn (generated)" id="1648646496869-1">
+        <createTable tableName="quote">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="quote_pkey"/>
+            </column>
+            <column name="text" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hash" type="VARCHAR(40)"/>
+            <column name="author" type="TEXT"/>
+            <column name="author_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="veinhorn (generated)" id="1648646496869-2">
+        <createTable tableName="author">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="author_pkey"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="veinhorn (generated)" id="1648646496869-3">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_pkey"/>
+            </column>
+            <column name="username" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="veinhorn (generated)" id="1648646496869-4">
+        <createSequence cacheSize="1" cycle="false" dataType="integer" incrementBy="1" maxValue="2147483647" minValue="1" sequenceName="user_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="veinhorn (generated)" id="1648646496869-5">
+        <addUniqueConstraint columnNames="username" constraintName="unique_username" tableName="user"/>
+    </changeSet>
+    <changeSet author="veinhorn (generated)" id="1648646496869-6">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="quote" constraintName="quote_author_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="author" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

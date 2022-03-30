@@ -12,6 +12,8 @@ spring:
     url: "jdbc:postgresql://localhost:5432/forismatic-proxy"
     username: veinhorn
     password: root
+  liquibase:
+    change-log: classpath:liquibase-changelog.xml
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
