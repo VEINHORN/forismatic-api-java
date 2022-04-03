@@ -7,11 +7,13 @@ import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 import com.veinhorn.forismatic.proxy.exception.DuplicateQuoteException;
 import com.veinhorn.forismatic.proxy.exception.UserNotFoundException;
 import com.veinhorn.forismatic.proxy.persistence.entity.AuthorEntity;
+import com.veinhorn.forismatic.proxy.persistence.entity.LanguageEntity;
 import com.veinhorn.forismatic.proxy.persistence.entity.QuoteEntity;
 import com.veinhorn.forismatic.proxy.persistence.entity.UserEntity;
 import com.veinhorn.forismatic.proxy.persistence.repository.AuthorRepository;
 import com.veinhorn.forismatic.proxy.persistence.repository.QuoteRepository;
 import com.veinhorn.forismatic.proxy.persistence.repository.UserRepository;
+import com.veinhorn.forismatic.proxy.service.LanguageService;
 import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class QuoteServiceImpl implements QuoteService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private LanguageService languageService;
+
     private Language getRandomLanguage() {
         return new Random().nextInt() % 2 == 0 ? Language.ENGLISH : Language.RUSSIAN;
     }
@@ -43,7 +48,11 @@ public class QuoteServiceImpl implements QuoteService {
             // We use admin user for created_by when importing quote from Forismatic
             var adminUser = findUser(UserEntity.ADMIN_USERNAME).orElseThrow(UserNotFoundException::new);
             var randomLanguage = getRandomLanguage();
-            var saved = save(toDto(new Forismatic(randomLanguage).getQuote()), adminUser);
+            var saved = save(toDto(
+                    new Forismatic(randomLanguage).getQuote()),
+                    adminUser,
+                    Optional.of(randomLanguage)
+            );
 
             return Optional.of(toDto(saved));
         } catch (DuplicateQuoteException e) {
@@ -67,26 +76,31 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     private QuoteEntity save(QuoteDto quote, Integer userId) throws UserNotFoundException, DuplicateQuoteException {
-        return save(quote, userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException()));
+        var found = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        return save(quote, found, Optional.empty());
     }
 
-    private QuoteEntity save(QuoteDto quote, UserEntity user) throws DuplicateQuoteException {
+    private QuoteEntity save(QuoteDto quote, UserEntity user, Optional<Language> language) throws DuplicateQuoteException {
         var hash = hash(quote.getText());
         var quotes = repository.findByHash(hash);
+        var lang = language
+                .map(l -> languageService.findOrCreate(l.value()))
+                .orElse(null);
 
         if (!quotes.isEmpty()) throw new DuplicateQuoteException();
 
         // If hash of quote text does not exist in database, we save author and quote
-        return save(quote, hash);
+        return save(quote, hash, lang);
     }
 
-    private QuoteEntity save(QuoteDto quote, String quoteHash) {
+    private QuoteEntity save(QuoteDto quote, String quoteHash, LanguageEntity language) {
         return repository.save(
                 new QuoteEntity(
                         quote.getText(),
                         quoteHash,
                         quote.getAuthor(),
-                        findOrCreateAuthor(Optional.ofNullable(quote.getAuthor()))
+                        findOrCreateAuthor(Optional.ofNullable(quote.getAuthor())),
+                        language
                 )
         );
     }

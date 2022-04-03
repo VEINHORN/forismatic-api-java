@@ -25,10 +25,15 @@ public class QuoteEntity {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private AuthorEntity author;
 
-    public QuoteEntity(String text, String hash, String authorName, AuthorEntity author) {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "language_id", referencedColumnName = "id")
+    private LanguageEntity language;
+
+    public QuoteEntity(String text, String hash, String authorName, AuthorEntity author, LanguageEntity language) {
         this.text = text;
         this.hash = hash;
         this.authorName = authorName;
         this.author = author;
+        this.language = language;
     }
 }
