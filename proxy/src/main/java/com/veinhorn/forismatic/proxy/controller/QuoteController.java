@@ -41,7 +41,7 @@ public class QuoteController {
     @GetMapping("/{id}")
     public QuoteDto getQuote(@PathVariable Integer id) {
         return service
-                .getQuote(id)
+                .findQuote(id)
                 .orElseThrow(QuoteNotFoundException::new);
     }
 

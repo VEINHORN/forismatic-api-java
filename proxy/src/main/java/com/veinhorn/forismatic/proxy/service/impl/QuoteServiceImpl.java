@@ -43,7 +43,7 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public Optional<QuoteDto> getQuote(Integer id) {
+    public Optional<QuoteDto> findQuote(Integer id) {
         return repository.findById(id).map(this::toDto);
     }
 

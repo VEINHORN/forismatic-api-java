@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface QuoteService {
     Optional<QuoteDto> getRandomQuote();
-    Optional<QuoteDto> getQuote(Integer id);
+    Optional<QuoteDto> findQuote(Integer id);
     QuoteDto saveQuote(QuoteDto quote) throws DuplicateQuoteException;
 }
