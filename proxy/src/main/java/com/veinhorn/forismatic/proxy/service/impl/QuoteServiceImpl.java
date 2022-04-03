@@ -25,14 +25,13 @@ public class QuoteServiceImpl implements QuoteService {
     @Autowired
     private QuoteRepository repository;
 
+    // TODO: Update this method to return new random quote in case of quote duplication
     @Override
     public Optional<QuoteDto> getRandomQuote() {
         try {
-            QuoteEntity saved = save(new Forismatic().getQuote());
+            var saved = save(toDto(new Forismatic().getQuote()));
 
-            QuoteDto dto = new QuoteDto(saved.getId(), saved.getText(), saved.getAuthorName());
-
-            return Optional.of(dto);
+            return Optional.of(toDto(saved));
         } catch (DuplicateQuoteException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -45,35 +44,42 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public Optional<QuoteDto> getQuote(Integer id) {
-        return repository.findById(id).map(quote -> new QuoteDto(quote.getId(), quote.getText(), quote.getAuthorName()));
+        return repository.findById(id).map(this::toDto);
     }
 
-    private QuoteEntity save(Quote quote) throws DuplicateQuoteException {
-        String hash = DigestUtils.sha1Hex(quote.getQuoteText());
-        List<QuoteEntity> quotes = repository.findByHash(hash);
+    @Override
+    public QuoteDto saveQuote(QuoteDto quote) throws DuplicateQuoteException {
+        return toDto(save(quote));
+    }
+
+    /**
+     * Internal implementation of saving quotes
+     * @param quote
+     * @return
+     * @throws DuplicateQuoteException
+     */
+    private QuoteEntity save(QuoteDto quote) throws DuplicateQuoteException {
+        var hash = hash(quote.getText());
+        var quotes = repository.findByHash(hash);
+
+        if (!quotes.isEmpty()) throw new DuplicateQuoteException();
 
         // If hash of quote text does not exist in database, we save author and quote
-        if (quotes.isEmpty()) {
-            // Save author if it not exist
-            QuoteEntity newEntity = new QuoteEntity(
-                    quote.getQuoteText(),
-                    hash, quote.getQuoteAuthor().orElse(null),
-                    getAuthor(quote.getQuoteAuthor())
-            );
-
-            return repository.save(newEntity);
-        } else if (quotes.size() == 1) {
-            QuoteEntity existing = quotes.get(0);
-            // Update author of existing quote if it doesn't exist in database
-            if (existing.getAuthorName() == null) quote.getQuoteAuthor().ifPresent(existing::setAuthorName);
-
-            return quotes.get(0);
-        }
-
-        throw new DuplicateQuoteException();
+        return save(quote, hash);
     }
 
-    private AuthorEntity getAuthor(Optional<String> authorName) {
+    private QuoteEntity save(QuoteDto quote, String quoteHash) {
+        return repository.save(
+                new QuoteEntity(
+                        quote.getText(),
+                        quoteHash,
+                        quote.getAuthor(),
+                        findOrCreateAuthor(Optional.ofNullable(quote.getAuthor()))
+                )
+        );
+    }
+
+    private AuthorEntity findOrCreateAuthor(Optional<String> authorName) {
         AuthorEntity author = null;
 
         if (authorName.isPresent()) {
@@ -90,5 +96,27 @@ public class QuoteServiceImpl implements QuoteService {
         }
 
         return author;
+    }
+
+    private String hash(String quoteText) {
+        return DigestUtils.sha1Hex(quoteText);
+    }
+
+    private QuoteDto toDto(QuoteEntity quote) {
+        return QuoteDto
+                .builder()
+                .id(quote.getId())
+                .text(quote.getText())
+                .author(quote.getAuthorName())
+                .build();
+    }
+
+    private QuoteDto toDto(Quote quote) {
+        return QuoteDto
+                .builder()
+                .text(quote.getQuoteText())
+                .author(quote.getQuoteAuthor().orElse(null))
+                .forismaticQuoteLink(quote.getQuoteLink().orElse(null))
+                .build();
     }
 }

@@ -5,9 +5,12 @@ import lombok.*;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
+@Builder
 public class QuoteDto {
-    private final Integer id;
-    private final String text;
-    private final String author;
+    private Integer id;
+    private String text;
+    private String author;
+
+    private String forismaticQuoteLink;
 }

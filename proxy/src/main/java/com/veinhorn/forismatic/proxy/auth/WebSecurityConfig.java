@@ -20,8 +20,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
             new AntPathRequestMatcher("/auth/**"),
-            new AntPathRequestMatcher("/quotes/random"),
-            new AntPathRequestMatcher("/quotes/*")
+            new AntPathRequestMatcher("/quotes/random")
     );
 
     private static final RequestMatcher PROTECTED_URLS = new NegatedRequestMatcher(PUBLIC_URLS);
@@ -47,7 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .logout().disable();
+                .logout().disable()
+                .cors().disable()
+                .csrf().disable();
 
     }
 
