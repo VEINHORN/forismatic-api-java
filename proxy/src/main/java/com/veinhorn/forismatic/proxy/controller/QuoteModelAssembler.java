@@ -1,12 +1,12 @@
-package com.veinhorn.forismatic.proxy;
+package com.veinhorn.forismatic.proxy.controller;
 
-import com.veinhorn.forismatic.proxy.controller.QuoteController;
 import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class QuoteModelAssembler implements RepresentationModelAssembler<QuoteDto, EntityModel<QuoteDto>> {

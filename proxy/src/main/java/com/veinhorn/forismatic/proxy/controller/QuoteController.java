@@ -1,6 +1,5 @@
 package com.veinhorn.forismatic.proxy.controller;
 
-import com.veinhorn.forismatic.proxy.QuoteModelAssembler;
 import com.veinhorn.forismatic.proxy.auth.User;
 import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 import com.veinhorn.forismatic.proxy.exception.DuplicateQuoteException;
