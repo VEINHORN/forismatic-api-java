@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Table(schema = "public", name = "USER")
 @Getter @Setter @NoArgsConstructor
 public class UserEntity {
+    public static final String ADMIN_USERNAME = "admin";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -1,13 +1,17 @@
 package com.veinhorn.forismatic.proxy.service.impl;
 
 import com.veinhorn.forismatic.api.Forismatic;
+import com.veinhorn.forismatic.api.Language;
 import com.veinhorn.forismatic.api.Quote;
 import com.veinhorn.forismatic.proxy.dto.QuoteDto;
 import com.veinhorn.forismatic.proxy.exception.DuplicateQuoteException;
+import com.veinhorn.forismatic.proxy.exception.UserNotFoundException;
 import com.veinhorn.forismatic.proxy.persistence.entity.AuthorEntity;
 import com.veinhorn.forismatic.proxy.persistence.entity.QuoteEntity;
+import com.veinhorn.forismatic.proxy.persistence.entity.UserEntity;
 import com.veinhorn.forismatic.proxy.persistence.repository.AuthorRepository;
 import com.veinhorn.forismatic.proxy.persistence.repository.QuoteRepository;
+import com.veinhorn.forismatic.proxy.persistence.repository.UserRepository;
 import com.veinhorn.forismatic.proxy.service.QuoteService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class QuoteServiceImpl implements QuoteService {
@@ -25,11 +30,20 @@ public class QuoteServiceImpl implements QuoteService {
     @Autowired
     private QuoteRepository repository;
 
-    // TODO: Update this method to return new random quote in case of quote duplication
+    @Autowired
+    private UserRepository userRepository;
+
+    private Language getRandomLanguage() {
+        return new Random().nextInt() % 2 == 0 ? Language.ENGLISH : Language.RUSSIAN;
+    }
+
     @Override
-    public Optional<QuoteDto> getRandomQuote() {
+    public Optional<QuoteDto> getRandomQuote() throws UserNotFoundException {
         try {
-            var saved = save(toDto(new Forismatic().getQuote()));
+            // We use admin user for created_by when importing quote from Forismatic
+            var adminUser = findUser(UserEntity.ADMIN_USERNAME).orElseThrow(UserNotFoundException::new);
+            var randomLanguage = getRandomLanguage();
+            var saved = save(toDto(new Forismatic(randomLanguage).getQuote()), adminUser);
 
             return Optional.of(toDto(saved));
         } catch (DuplicateQuoteException e) {
@@ -48,17 +62,15 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public QuoteDto saveQuote(QuoteDto quote) throws DuplicateQuoteException {
-        return toDto(save(quote));
+    public QuoteDto saveQuote(QuoteDto quote, Integer userId) throws UserNotFoundException, DuplicateQuoteException {
+        return toDto(save(quote, userId));
     }
 
-    /**
-     * Internal implementation of saving quotes
-     * @param quote
-     * @return
-     * @throws DuplicateQuoteException
-     */
-    private QuoteEntity save(QuoteDto quote) throws DuplicateQuoteException {
+    private QuoteEntity save(QuoteDto quote, Integer userId) throws UserNotFoundException, DuplicateQuoteException {
+        return save(quote, userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException()));
+    }
+
+    private QuoteEntity save(QuoteDto quote, UserEntity user) throws DuplicateQuoteException {
         var hash = hash(quote.getText());
         var quotes = repository.findByHash(hash);
 
@@ -77,6 +89,10 @@ public class QuoteServiceImpl implements QuoteService {
                         findOrCreateAuthor(Optional.ofNullable(quote.getAuthor()))
                 )
         );
+    }
+
+    private Optional<UserEntity> findUser(String username) {
+        return userRepository.findByUsername(username).stream().findFirst();
     }
 
     private AuthorEntity findOrCreateAuthor(Optional<String> authorName) {

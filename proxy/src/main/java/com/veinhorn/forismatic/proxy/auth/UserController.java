@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * This controller is used for user registration and authorization
+ */
 @RestController
 @RequestMapping("/auth")
 public class UserController {
