@@ -13,7 +13,6 @@
     <modules>
         <module>client</module>
         <module>example</module>
-        <module>proxy</module>
     </modules>
 
     <build>
