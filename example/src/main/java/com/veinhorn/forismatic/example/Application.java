@@ -9,8 +9,8 @@ import java.io.IOException;
 public class Application {
     public static void main(String[] args) throws IOException {
         Quote quote = new Forismatic(Language.ENGLISH).getQuote();
-        System.out.println(String.format("\"%s\"", quote.getQuoteText()));
-        System.out.println(String.format("\n\t © %s", getAuthor(quote)));
+        System.out.printf("\"%s\"%n", quote.getQuoteText());
+        System.out.printf("\n\t © %s%n", getAuthor(quote));
     }
 
     private static String getAuthor(Quote quote) {
